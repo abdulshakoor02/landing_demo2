@@ -2,22 +2,20 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Typography } from "@/components/ui/typography"
+import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-import { useFadeIn } from "@/hooks/use-animation";
+import { useFadeIn } from "@/hooks/use-animation"
 
 const services = [
   {
     value: "web-dev",
     title: "Web Development",
-    project: "E-Commerce Platform",
+    project: "Red Cross",
     description: "We built a full-featured online store with a custom CMS, secure payment gateway, and a design optimized for conversion. The platform now handles thousands of daily transactions.",
     image: "/project-1.jpg",
-    stats: [
-      { value: "+200%", label: "Conversion Rate" },
-      { value: "-50%", label: "Bounce Rate" },
-    ]
+    stats: "470,000+ Downloads"
   },
   {
     value: "software-dev",
@@ -25,10 +23,7 @@ const services = [
     project: "Custom CRM System",
     description: "An enterprise-level CRM solution for a major financial services firm. The system includes advanced reporting, workflow automation, and third-party integrations.",
     image: "/project-2.jpg",
-    stats: [
-      { value: "+40%", label: "Productivity" },
-      { value: "-30%", label: "Operational Costs" },
-    ]
+    stats: "40% Increase in Productivity"
   },
   {
     value: "mobile-dev",
@@ -36,10 +31,7 @@ const services = [
     project: "Healthcare Portal",
     description: "A HIPAA-compliant telemedicine app connecting patients with doctors. Features include video consultations, appointment scheduling, and secure messaging.",
     image: "/project-3.jpg",
-    stats: [
-      { value: "50k+", label: "Active Users" },
-      { value: "4.8/5", label: "App Store Rating" },
-    ]
+    stats: "50k+ Active Users"
   },
   {
     value: "ui-ux-design",
@@ -47,10 +39,7 @@ const services = [
     project: "SaaS Analytics Dashboard",
     description: "A complete redesign of a SaaS analytics platform. We created a modern, intuitive interface with a focus on data visualization and user experience.",
     image: "/project-4.jpg",
-    stats: [
-      { value: "+70%", label: "User Engagement" },
-      { value: "-60%", label: "User Errors" },
-    ]
+    stats: "70% User Engagement Increase"
   },
 ]
 
@@ -58,55 +47,64 @@ export function ServicesSection() {
   const fadeIn = useFadeIn()
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-900 text-white">
+    <section className="w-full py-20 md:py-32 lg:py-40 bg-white">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12">
-          <Typography variant="h2" className="text-3xl font-bold tracking-tighter sm:text-5xl text-white">
+        <div className="text-center mb-16">
+          <Typography variant="h2" className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">
             We're experts in various fields
           </Typography>
-          <Typography variant="lead" className="max-w-[900px] mx-auto text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          <Typography variant="lead" className="max-w-[900px] mx-auto text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mt-4">
             From web and mobile development to UI/UX design, we have the skills to bring your vision to life.
           </Typography>
         </div>
 
         <Tabs defaultValue="web-dev" className="w-full">
-          {services.map((service) => (
-            <TabsContent key={service.value} value={service.value} style={fadeIn.style}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div className="p-8 bg-gray-800 rounded-2xl shadow-inner">
-                  <Typography variant="small" className="font-semibold text-gray-400">
-                    Case Study
-                  </Typography>
-                  <Typography variant="h3" className="text-3xl font-bold mt-2 text-white">
-                    {service.project}
-                  </Typography>
-                  <Typography className="mt-4 text-gray-300 text-lg">
-                    {service.description}
-                  </Typography>
-                  <div className="mt-8 flex space-x-8">
-                    {service.stats.map((stat) => (
-                      <div key={stat.label}>
-                        <Typography variant="h2" className="text-4xl font-bold text-white">{stat.value}</Typography>
-                        <Typography className="text-gray-400">{stat.label}</Typography>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="w-full h-[50vh] relative rounded-2xl overflow-hidden shadow-2xl group">
+          {/* Main content area with image background and overlaid card */}
+          <div className="relative w-full h-[600px] rounded-3xl overflow-hidden mb-16 service-background-container">
+            {services.map((service) => (
+              <TabsContent key={`${service.value}-image`} value={service.value} className="m-0 absolute inset-0">
+                <div className="relative w-full h-full">
                   <Image
-                    alt={service.project}
-                    className="object-cover transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                    layout="fill"
                     src={service.image}
+                    alt={service.project}
+                    fill
+                    className="object-cover"
+                    priority
                   />
                 </div>
-              </div>
-            </TabsContent>
-          ))}
-
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-4 mt-12 bg-gray-800 rounded-full p-2">
+              </TabsContent>
+            ))}
+            
+            {/* Content card overlayed on top of the image */}
             {services.map((service) => (
-              <TabsTrigger key={service.value} value={service.value} className="py-3 text-lg">
+              <TabsContent key={`${service.value}-content`} value={service.value} style={fadeIn.style} className="m-0 absolute inset-0 flex items-center">
+                <div className="w-full max-w-2xl bg-white/90 backdrop-blur-sm rounded-3xl service-card p-10 ml-8 md:ml-16 border border-gray-100 shadow-xl">
+                  <div className="inline-block bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full mb-6">
+                    CASE STUDY
+                  </div>
+                  <Typography variant="h3" className="text-2xl font-bold text-gray-900 mb-4">
+                    {service.project}
+                  </Typography>
+                  <Typography className="text-gray-600 mb-8 text-lg">
+                    {service.description}
+                  </Typography>
+                  <Button variant="default" className="mb-8 bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-full">
+                    Read case
+                  </Button>
+                  <div className="pt-6 border-t border-gray-100">
+                    <Typography className="text-lg font-semibold text-gray-900">
+                      {service.stats}
+                    </Typography>
+                  </div>
+                </div>
+              </TabsContent>
+            ))}
+          </div>
+
+          {/* Tabs positioned below the main content area */}
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-2 bg-gray-100 rounded-full p-1 max-w-4xl mx-auto">
+            {services.map((service) => (
+              <TabsTrigger key={service.value} value={service.value} className="py-4 text-sm md:text-base rounded-full text-gray-700 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-md hover:text-gray-900 transition-all duration-200">
                 {service.title}
               </TabsTrigger>
             ))}

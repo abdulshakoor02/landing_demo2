@@ -23,7 +23,10 @@ export function useFadeIn(duration: number = 500) {
 
   return {
     style: {
-      animation: isMounted ? `fadeIn ${duration}ms ease-in-out` : '',
+      animationName: isMounted ? 'fadeIn' : 'none',
+      animationDuration: isMounted ? `${duration}ms` : '0ms',
+      animationTimingFunction: 'ease-in-out',
+      animationFillMode: 'both',
     },
   };
 }
