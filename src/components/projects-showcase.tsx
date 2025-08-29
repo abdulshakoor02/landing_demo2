@@ -41,7 +41,9 @@ export function ProjectsShowcase() {
   useEffect(() => {
     const sectionObserver = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(entry.isIntersecting)
+        if (entry) {
+          setIsIntersecting(entry.isIntersecting)
+        }
       },
       { rootMargin: "-200px 0px -200px 0px" }
     )
@@ -111,7 +113,9 @@ export function ProjectsShowcase() {
                   index % 2 === 0 && (
                     <div 
                       key={index} 
-                      ref={el => projectRefs.current[index] = el}
+                      ref={(el) => {
+                        projectRefs.current[index] = el;
+                      }}
                       className="grid grid-cols-1 gap-8 items-center"
                     >
                       <div className="w-full h-[60vh] relative rounded-2xl overflow-hidden shadow-2xl group">
@@ -142,7 +146,9 @@ export function ProjectsShowcase() {
                   index % 2 !== 0 && (
                     <div 
                       key={index} 
-                      ref={el => projectRefs.current[index] = el}
+                      ref={(el) => {
+                        projectRefs.current[index] = el;
+                      }}
                       className="grid grid-cols-1 gap-8 items-center"
                     >
                       <div className="w-full h-[60vh] relative rounded-2xl overflow-hidden shadow-2xl group">
